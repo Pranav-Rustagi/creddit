@@ -281,52 +281,6 @@
             })
         })
 
-
-        $("#signInButton").click(function () {
-            let users = JSON.parse(localStorage.getItem("users"));
-            let email = $('#forSignIn #email').val();
-            if (users[email]) {
-                let password = users[email].password;
-                if (password === $('#forSignIn #password').val()) {
-                    sessionStorage.setItem("myDetails", JSON.stringify(users[email]));
-                    if ($('#gridCheck1').is(":checked")) {
-                        localStorage.setItem("myDetails", JSON.stringify(users[email]));
-                    }
-                    $(this).closest('form')[0].reset();
-                    alert("Successfully logged in")
-                    location.replace("./");
-                }
-                else {
-                    alert("Credentials don't match");
-                }
-            }
-            else {
-                alert("User not found! Sign up first");
-            }
-            if (password === "password=" + $("#forSignIn #password").val()) {
-                localStorage.setItem("saveDetails", true);
-            }
-        })
-
-
-
-        $('#name').keydown(function (event) {
-            let data = event.originalEvent.key;
-            let result = (/([A-z]|\s)/g).test(data);
-            if (!result) {
-                event.preventDefault();
-            }
-        })
-
-        $('[name=applyingFor]').change(function () {
-            if ($(this).val() === 'warrior') {
-                detachable = $('#forSignUp form > div:nth-child(4)').detach();
-            }
-            else if (detachable != undefined) {
-                $('#forSignUp form > div:nth-child(3)').after(detachable);
-            }
-        })
-
     </script>
 </body>
 
