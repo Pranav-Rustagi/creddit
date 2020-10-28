@@ -228,42 +228,49 @@
             let next = blocks.next();
 
             if (!next.is(parent)) {
-                blocks.slideUp('fast', () => {
-                    next.slideDown('slow');
-                    $('#back').show();
-                })
+                if (checker(blocks)) {
+                    blocks.slideUp('fast', () => {
+                        next.slideDown('slow');
+                        $('#back').show();
+                    })
+                }
             }
             else {
-                let obj = {
-                    appliedFor: $("#forSignUp [name=applyingFor]:checked").val(),
-                    email: $("#forSignUp #email").val(),
-                    phone: $("#forSignUp #phone").val(),
-                    aadharNo: $("#forSignUp #aadharNo").val(),
-                    password: $("#forSignUp #password").val(),
-                    city: $("#forSignUp #city").val(),
-                    service: $("#forSignUp #service").val(),
-                    name: $("#forSignUp #name").val()
-                };
+                if ($('#forSignUp input[type="checkbox"]:checked').length < 3) {
+                    alert("You have to agree with all the three conditions.");
+                }
+                else {
+                    let obj = {
+                        appliedFor: $("#forSignUp [name=applyingFor]:checked").val(),
+                        email: $("#forSignUp #email").val(),
+                        phone: $("#forSignUp #phone").val(),
+                        aadharNo: $("#forSignUp #aadharNo").val(),
+                        password: $("#forSignUp #password").val(),
+                        city: $("#forSignUp #city").val(),
+                        interest_rate: $("#forSignUp #intRate").val(),
+                        name: $("#forSignUp #name").val()
+                    };
 
-                let users = JSON.parse(localStorage.getItem("users"));
-                if (users) {
-                    if (users[obj.email]) {
-                        alert("User already exists!")
+                    let users = JSON.parse(localStorage.getItem("users"));
+                    if (users) {
+                        if (users[obj.email]) {
+                            alert("User already exists!")
+                        }
+                        else {
+                            users[obj.email] = obj;
+                            localStorage.setItem("users", JSON.stringify(users));
+                            alert("Successfully signed up!");
+                            $(this).closest('form')[0].reset();
+                            $('.nav-item.active').siblings().click();
+                        }
                     }
                     else {
+                        users = {};
                         users[obj.email] = obj;
                         localStorage.setItem("users", JSON.stringify(users));
                         alert("Successfully signed up!");
-                        $(this).closest('form')[0].reset();
                         $('.nav-item.active').siblings().click();
                     }
-                }
-                else {
-                    users = {};
-                    users[obj.email] = obj;
-                    localStorage.setItem("users", JSON.stringify(users));
-                    alert("Successfully signed up!");
-                    $('.nav-item.active').siblings().click();
                 }
             }
         })
@@ -279,6 +286,87 @@
                     $('#back').hide();
                 }
             })
+        })
+
+        $('[name=applyingFor]').change(function () {
+            if ($(this).val() === 'borrower') {
+                detachable = $('#forSignUp form > div:nth-child(4)').detach();
+            }
+            else if (detachable != undefined) {
+                $('#forSignUp form > div:nth-child(3)').after(detachable);
+            }
+        })
+
+        function checker(block) {
+            let checkVal = true;
+            block.find('input').each((ind, el) => {
+                let type = $(el).attr("type");
+                if (type === "radio") {
+                    if (block.find('input[type="radio"]:checked').length == 0) {
+                        checkVal = false;
+                        alert("You left a field");
+                        toShow($(el).closest('.form-group').parent());
+                        return false;
+                    }
+                }
+                else if (type === "text" || type === "email" || type === "tel" || type === "password") {
+                    if ($(el).val().trim() === "") {
+                        $(el).focus();
+                        checkVal = false;
+                        alert("You left a field");
+                        toShow($(el).closest('.form-group').parent());
+                        return false;
+                    }
+                }
+                else if (type === "file") {
+                    if ($(el).val().trim() === "") {
+                        $(el).focus();
+                        checkVal = false;
+                        alert("You left a field");
+                        toShow($(el).closest('.form-group').parent());
+                        return false;
+                    }
+                }
+            })
+            return checkVal;
+        }
+
+        function toShow(el) {
+            let isVisible = $('#forSignUp form > div:visible:not(:last-child)');
+            if (!$(el).is(isVisible)) {
+                isVisible.slideUp('fast', () => {
+                    $(el).slideDown('slow');
+                    if ($(el).is(':first-child')) {
+                        $('#back').hide();
+                    }
+                })
+            }
+        }
+
+        $("#signInButton").click(function () {
+            let users = JSON.parse(localStorage.getItem("users"));
+            let email = $('#forSignIn #email').val();
+            if (users[email]) {
+                let password = users[email].password;
+                if (password === $('#forSignIn #password').val()) {
+                    sessionStorage.setItem("myDetails", JSON.stringify(users[email]));
+                    if ($('#gridCheck1').is(":checked")) {
+                        localStorage.setItem("myDetails", JSON.stringify(users[email]));
+                    }
+                    $(this).closest('form')[0].reset();
+                    alert("Successfully logged in")
+                    location.replace("../");
+                }
+                else {
+                    alert("Credentials don't match");
+                }
+            }
+            else {
+                alert("User not found! Sign up first");
+            }
+            if (password === "password=" + $("#forSignIn #password").val()) {
+                localStorage.setItem("saveDetails", true);
+            }
         })
 
     </script>
