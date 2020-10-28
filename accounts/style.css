@@ -1,0 +1,49 @@
+/*******************\
+|*  Accounts Page  *|
+\*******************/
+
+section:nth-child(2){
+    top: 0;
+    z-index: 5;
+}
+
+#imageSheet{
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0.25;
+    transition: opacity 1s;
+}
+
+#imageSheet > div{
+    background-image: url("../imgs/accounts.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    padding-top: 1%;
+}
+
+#contentBlock > div{
+    background: rgba(248, 249, 250, 0.35);
+    z-index: 0;
+    color: #05696d;
+    transition: all 0.5s;
+}
+
+#contentBlock > div{
+    display: none;
+}
+
+#contentBlock .form-group{
+    align-items: center;
+}
+
+#forSignUp form > div:not(:first-child):not(:last-child){
+    display: none;
+}
+
+@media (orientation: portrait), (max-width: 992px) {
+    #imageSheet > div{
+        background-size: contain;
+    }
+}
