@@ -1,0 +1,167 @@
+body {
+    overflow-x: hidden;
+    cursor: default;
+}
+
+.btn:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+/*****************\
+|*    Section    *|
+\*****************/
+
+section {
+    margin: calc(2rem + 5vw) 0;
+}
+
+/******************\
+|* Navigation bar *|
+\******************/
+
+section:first-child {
+    top: 0;
+    z-index: 1000;
+}
+.navbar {
+    background: #05696d;
+    padding: 1rem 2rem;
+}
+.navbar-brand {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 1.75rem;
+    transition: all 1s;
+}
+.navbar-toggler {
+    padding: 0.1rem 0.25rem;
+}
+li.nav-item {
+    transition: all 0.25s;
+    border-bottom: 0.25vw solid transparent;
+}
+.navbar-brand:hover,
+.nav-item:hover {
+    transform: scale(1.1);
+}
+.nav-item.active {
+    border-bottom-color: #fff;
+}
+
+
+/*****************\
+|      banner     |
+\*****************/
+#banner{
+    background: #05696d;
+}
+
+#banner .display-4{
+    font-family: "Montserrat";
+    font-size: 4vw;
+    transition: all 1s;
+}
+
+#banner .col-md-8{
+    z-index: 2;
+    transition: all 1s;
+}
+
+#bannerImage{
+    transition: all 2.5s;
+    transition-delay: 0.5s;
+    min-height: 40vw;
+}
+
+#banner:hover #bannerImage {
+    transform: scale(1.15);
+}
+
+#banner:hover .col-md-8{
+    transform: scale(1.05);
+}
+#banner:hover .display-4 {
+    text-shadow: 0.5rem 0.5rem 3px #083d3f;
+}
+
+/*****************************\
+|* Common Section properties *|
+\*****************************/
+
+.section-title {
+    font-size: 5vw;
+    font-family: "Montserrat";
+    transition: all 1s;
+    transition-delay: 0.25s;
+    box-shadow: 0 0.25rem 1rem 0 rgba(0, 0, 0, 0.5);
+    margin-bottom: 2.5vw;
+}
+.section-title ~ div {
+    margin-top: 2.5vw;
+    transition: all 0.5s;
+    background: rgba(248, 249, 250, 0.65);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+section:hover .section-title,
+section:hover .section-title ~ div {
+    box-shadow: 0 1rem 1rem 0 rgba(0, 0, 0, 0.5);
+    transform: scale(1.05);
+}
+
+#howItWorks .btn {
+    right: 0;
+    top: -0.75rem;
+    line-height: 2.75rem;
+    font-size: 2.25rem;
+    transition: all 0.5s;
+}
+#howItWorks div[aria-expanded="true"] .btn {
+    transform: rotate(180deg);
+}
+
+/*******************\
+|*   Footer Part   *|
+\*******************/
+
+#footer svg,
+#footer img {
+    display: inline-block;
+    width: 1.5rem;
+    height: 1.5rem;
+    vertical-align: text-top;
+}
+
+
+@media (orientation: portrait), (max-width: 992px) {
+    /* navigation bar */
+    .navbar,
+    .section-title {
+        padding: 0.5rem 1rem;
+    }
+    .navbar-brand:hover,
+    .nav-item:hover {
+        transform: none;
+    }
+    #navbarSupportedContent li:not(:last-child) {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    }
+    #mainNav .nav-item.active {
+        border: none;
+    }
+
+    #banner .col-md-8{
+        position: absolute;
+        padding: 0!important;
+        top: calc(50% - (1.5rem + 3vw)/2);
+    }
+
+    #banner #bannerImage{
+        opacity: 0.5;
+    }
+
+    #banner .display-4{
+        font-size: calc(1rem + 3vw);
+    }
+}
