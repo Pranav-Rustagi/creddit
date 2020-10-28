@@ -1,0 +1,21 @@
+#template .section-title ~ div{
+    background: none;
+}
+
+#template .section-title{
+    text-transform: capitalize;
+}
+
+#template .section-title ~ div .card{
+    transition: all 0.5s;
+}
+
+#template .section-title ~ div .card:hover {
+    box-shadow: 0 1rem 1rem 0 rgba(0, 0, 0, 0.5);
+    transform: scale(1.05);
+}
+
+#template .section-title ~ div{
+    box-shadow: none;
+    transform: none;
+}

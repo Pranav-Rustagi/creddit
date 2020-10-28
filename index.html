@@ -179,7 +179,7 @@
     <section class="mb-5 mt-0">
         <hr class="bg-dark mt-0">
         <div id="footer" class="container d-flex flex-column">
-            <p class="font-weight-bold text-center mt-3">Connect with developers Pranav, and Vidhi at</p>
+            <p class="font-weight-bold text-center mt-3">Connect with developer Pranav at</p>
             <div class="d-flex justify-content-around w-50 mx-auto mt-3">
                 <a href="https://github.com/Pranav-Rustagi">
                     <svg xmlns="http://www.w3.org/2000/svg" class="navbar-nav-svg" viewBox="0 0 512 499.36" role="img"
@@ -211,6 +211,20 @@
     </section>
 
     <script>
+
+        $(window).on('load', () => {
+            if (localStorage.getItem("myDetails") != null) {
+                let myDetails = localStorage.getItem("myDetails");
+                sessionStorage.setItem("myDetails", myDetails);
+                sessionStorage.removeItem("target-page-action");
+            }
+            if (sessionStorage.getItem("myDetails") != null) {
+                $("#mainNav .nav-item:nth-last-child(2) .nav-link").removeAttr("data-action").attr("href", "./myPage").text("My page")
+                $("#mainNav .nav-item:last-child .nav-link").attr("data-action", "logout").attr("href", "").text("Log Out");
+                sessionStorage.removeItem("target-page-action");
+            }
+        })
+
         $(document).scroll(() => {
             var windowCheckHeight = $(window).height() / 2;
             var element = $('section').filter((ind, el) => {
@@ -247,9 +261,9 @@
             else {
                 let target = $(this).find('.nav-link');
                 if (target.data("action") === "logout") {
-                    // sessionStorage.clear();
-                    // localStorage.removeItem("myDetails");
-                    // location.reload();
+                    sessionStorage.clear();
+                    localStorage.removeItem("myDetails");
+                    location.reload();
                 }
                 else if ($(this).is(':nth-last-child(2)') && sessionStorage.getItem("myDetails")) {
                     location.href = target.attr("href");
