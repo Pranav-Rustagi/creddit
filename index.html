@@ -66,10 +66,10 @@
                         <a class="nav-link" href="#">How it works</a>
                     </li>
                     <li class="nav-item mr-3">
-                        <a class="nav-link" data-action="signup" href="accounts.html">Sign up</a>
+                        <a class="nav-link" data-action="signup" href="./accounts">Sign up</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link pr-0" data-action="signin" href="accounts.html">Sign in</a>
+                        <a class="nav-link pr-0" data-action="signin" href="./accounts">Sign in</a>
                     </li>
             </div>
         </nav>
@@ -96,7 +96,17 @@
             <h1 class="section-title bg-dark text-light text-center font-weight-normal py-2">About creddit</h1>
             <div class="container p-3 text-dark">
                 <p class="m-0">
-                    Content for about section
+                    The difficulty in getting approved for a loan stems from a variety of unique challenges faced by
+                    borrowers. Also, a typical problem in financial contracting which usually arrives on lender's side
+                    is trust issues on borrower.
+                    <br>
+                    <br>
+                    We at <a class="text-decoration-none font-weight-bold" href="#">creddit</a> organize simplified
+                    online applications to provide and ask for funds with
+                    affordable interest rates by building trust in lender-borrower relationship.
+                    We try to make your dreams come true with quick approvals, minimal documentation and get high loan
+                    amounts.
+                    We keep your information safe, secure and confidential.
                 </p>
             </div>
         </div>
@@ -214,6 +224,40 @@
                 var navEl = (tempEl === 'banner') ? $('.nav-item:first-child') : $('.nav-item[data-scrollPos = ' + tempEl + ']');
                 if (navEl)
                     navEl.addClass('active').siblings('.nav-item.active').removeClass('active');
+            }
+        })
+
+
+        $('.nav-item').click(function (event) {
+            event.preventDefault();
+            $(this).addClass('active').siblings('.nav-item.active').removeClass('active');
+            var scrollPos = $(this).attr("data-scrollPos");
+
+            if (scrollPos) {
+                $('html, body').animate({
+                    scrollTop: $("#" + scrollPos).offset().top - $('section').has('.navbar').height()
+                }, 400);
+            }
+
+            else if ($(this).is('.nav-item:first-child')) {
+                $('html, body').animate({
+                    scrollTop: 0
+                }, 400);
+            }
+            else {
+                let target = $(this).find('.nav-link');
+                if (target.data("action") === "logout") {
+                    // sessionStorage.clear();
+                    // localStorage.removeItem("myDetails");
+                    // location.reload();
+                }
+                else if ($(this).is(':nth-last-child(2)') && sessionStorage.getItem("myDetails")) {
+                    location.href = target.attr("href");
+                }
+                else {
+                    sessionStorage.setItem("target-page-action", target.data("action"))
+                    location.replace(target.attr("href"));
+                }
             }
         })
     </script>

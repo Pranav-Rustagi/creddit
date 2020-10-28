@@ -31,7 +31,7 @@ section:first-child {
 .navbar-brand {
     font-family: "Montserrat", sans-serif;
     font-weight: 500;
-    font-size: 1.75rem;
+    font-size: 2.25rem;
     transition: all 1s;
 }
 .navbar-toggler {
@@ -49,26 +49,25 @@ li.nav-item {
     border-bottom-color: #fff;
 }
 
-
 /*****************\
 |      banner     |
 \*****************/
-#banner{
+#banner {
     background: #05696d;
 }
 
-#banner .display-4{
+#banner .display-4 {
     font-family: "Montserrat";
     font-size: 4vw;
     transition: all 1s;
 }
 
-#banner .col-md-8{
+#banner .col-md-8 {
     z-index: 2;
     transition: all 1s;
 }
 
-#bannerImage{
+#bannerImage {
     transition: all 2.5s;
     transition-delay: 0.5s;
     min-height: 40vw;
@@ -78,7 +77,7 @@ li.nav-item {
     transform: scale(1.15);
 }
 
-#banner:hover .col-md-8{
+#banner:hover .col-md-8 {
     transform: scale(1.05);
 }
 #banner:hover .display-4 {
@@ -105,7 +104,8 @@ li.nav-item {
 }
 
 section:hover .section-title,
-section:hover .section-title ~ div {
+section:hover > div:not(#howItWorks) .section-title ~ div,
+#howItWorks > div.container:hover {
     box-shadow: 0 1rem 1rem 0 rgba(0, 0, 0, 0.5);
     transform: scale(1.05);
 }
@@ -133,12 +133,14 @@ section:hover .section-title ~ div {
     vertical-align: text-top;
 }
 
-
 @media (orientation: portrait), (max-width: 992px) {
     /* navigation bar */
     .navbar,
     .section-title {
         padding: 0.5rem 1rem;
+    }
+    .navbar-brand{
+        font-size: 1.75rem;
     }
     .navbar-brand:hover,
     .nav-item:hover {
@@ -151,17 +153,26 @@ section:hover .section-title ~ div {
         border: none;
     }
 
-    #banner .col-md-8{
+    #banner .col-md-8 {
         position: absolute;
-        padding: 0!important;
-        top: calc(50% - (1.5rem + 3vw)/2);
+        padding: 0 !important;
+        top: calc(50% - (1.5rem + 3vw) / 2);
     }
 
-    #banner #bannerImage{
-        opacity: 0.5;
+    #banner #bannerImage {
+        opacity: 0.25;
     }
 
-    #banner .display-4{
+    #banner .display-4 {
         font-size: calc(1rem + 3vw);
+    }
+    section:hover .section-title,
+    section:hover > div:not(#howItWorks) .section-title ~ div,
+    #howItWorks > div.container:hover {
+        box-shadow: 0 0.25rem 1rem 0 rgba(0, 0, 0, 0.5);
+        transform: none;
+    }
+    section:hover .section-title ~ div {
+        box-shadow: none!important;
     }
 }
